@@ -3,9 +3,9 @@ plugins {
     id "io.codearte.nexus-staging" version "0.20.0"
 }
 
-group = 'io.github.dachv.spring.data.event'
+group = 'io.github.dachv'
 archivesBaseName = 'spring-data-events'
-version = "1.0.1.RELEASE"
+version = "1.0.2.SNAPSHOT"
 
 sourceCompatibility = 1.8
 
@@ -102,7 +102,6 @@ uploadArchives {
 nexusStaging {
     username = "$ossrhUsername"
     password = "$ossrhPassword"
-    packageGroup = "io.github.dachv"
     numberOfRetries = 2
     delayBetweenRetriesInMillis = 100
 }
