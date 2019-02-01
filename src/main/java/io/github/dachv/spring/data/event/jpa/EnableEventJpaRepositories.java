@@ -1,6 +1,6 @@
-package io.github.dachv.spring.data.event.elasticsearch;
+package io.github.dachv.spring.data.event.jpa;
 
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@EnableElasticsearchRepositories(repositoryFactoryBeanClass = EntityEventElasticsearchRepoFactoryBean.class)
-public @interface EnableEntityEventElasticsearchRepositories {
+@EnableJpaRepositories(repositoryFactoryBeanClass = EntityEventJpaRepoFactoryBean.class)
+public @interface EnableEventJpaRepositories {
 }

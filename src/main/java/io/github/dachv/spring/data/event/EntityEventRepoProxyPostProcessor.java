@@ -18,17 +18,17 @@ public class EntityEventRepoProxyPostProcessor implements RepositoryProxyPostPro
 
     @Override
     public void postProcess(ProxyFactory factory, RepositoryInformation repositoryInformation) {
-        final Optional<PublishEntityEvents> publishSettingsOpt = Optional.ofNullable(
-            AnnotationUtils.findAnnotation(repositoryInformation.getRepositoryInterface(), PublishEntityEvents.class));
+        final Optional<PublishEvents> publishSettingsOpt = Optional.ofNullable(
+            AnnotationUtils.findAnnotation(repositoryInformation.getRepositoryInterface(), PublishEvents.class));
         if (publishSettingsOpt.isPresent()) {
-            final PublishEntityEvents publishSettings = publishSettingsOpt.get();
+            final PublishEvents publishSettings = publishSettingsOpt.get();
             if (isNotAllEventsDisabled(publishSettings)) {
                 factory.addAdvice(new EntityEventMethodInterceptor(eventPublisher, publishSettings));
             }
         }
     }
 
-    private boolean isNotAllEventsDisabled(final PublishEntityEvents settings) {
+    private boolean isNotAllEventsDisabled(final PublishEvents settings) {
         return settings.publishCreate() || settings.publishUpdate() || settings.publishDelete();
     }
 }

@@ -11,9 +11,9 @@ public class EntityEventMethodInterceptor implements MethodInterceptor {
     private static final String DELETE_METHOD_NAME = "delete";
 
     private final ApplicationEventPublisher eventPublisher;
-    private final PublishEntityEvents publishSettings;
+    private final PublishEvents publishSettings;
 
-    public EntityEventMethodInterceptor(ApplicationEventPublisher eventPublisher, PublishEntityEvents publishSettings) {
+    public EntityEventMethodInterceptor(ApplicationEventPublisher eventPublisher, PublishEvents publishSettings) {
         this.eventPublisher = eventPublisher;
         this.publishSettings = publishSettings;
     }
