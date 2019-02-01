@@ -40,9 +40,9 @@ uploadArchives {
                 url 'https://github.com/vitaliy-dach/spring-data-events'
 
                 scm {
-                    connection 'scm:svn:http://foo.googlecode.com/svn/trunk/'
-                    developerConnection 'scm:svn:https://foo.googlecode.com/svn/trunk/'
-                    url 'http://foo.googlecode.com/svn/trunk/'
+                    connection 'scm:https://github.com/vitaliy-dach/spring-data-events'
+                    developerConnection 'scm:git:https://github.com/vitaliy-dach/spring-data-events'
+                    url 'https://github.com/vitaliy-dach/spring-data-events'
                 }
 
                 licenses {
