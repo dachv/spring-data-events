@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "io.codearte.nexus-staging" version "0.20.0"
 }
 
 group = 'io.github.dachv.spring.data.event'
@@ -30,6 +31,76 @@ wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }
 
-if (project.hasProperty("publishing")) {
-    apply from: 'publishing.gradle'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+task javadocJar(type: Jar) {
+    archiveClassifier.set 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+tasks.withType(Sign)*.enabled = project.hasProperty('signing')
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Spring Data Events'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Spring Data repository events publishing via Spring events infrastructure.'
+                url 'https://github.com/vitaliy-dach/spring-data-events'
+
+                scm {
+                    connection 'scm:https://github.com/vitaliy-dach/spring-data-events'
+                    developerConnection 'scm:git:https://github.com/vitaliy-dach/spring-data-events'
+                    url 'https://github.com/vitaliy-dach/spring-data-events'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'dachv'
+                        name 'Vitaliy Dach'
+                        email 'vitaliy.dach@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+nexusStaging {
+    username = "$ossrhUsername"
+    password = "$ossrhPassword"
+    //packageGroup = "io.github.dachv"
 }
