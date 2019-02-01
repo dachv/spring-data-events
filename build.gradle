@@ -5,7 +5,7 @@ plugins {
 
 group = 'io.github.dachv.spring.data.event'
 archivesBaseName = 'spring-data-events'
-version = "1.0.0.RELEASE"
+version = "1.0.1.SNAPSHOT"
 
 sourceCompatibility = 1.8
 
